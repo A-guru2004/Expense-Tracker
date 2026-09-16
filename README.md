@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <p align="center">
   <img src="https://img.icons8.com/color/96/money-bag.png" width="80" alt="logo">
 </p>
