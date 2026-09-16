@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center">
   <img src="https://img.icons8.com/color/96/money-bag.png" width="80" alt="logo">
 </p>
@@ -96,3 +97,6 @@ python manage.py runserver
 ```
 
 Visit **http://127.0.0.1:8000/**
+=======
+# Expense-Tracker
+>>>>>>> 8b598746b545eb9de582d3bbc6364c4c186cd22c
