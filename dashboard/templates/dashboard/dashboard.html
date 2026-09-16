@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Dashboard</h2>
+
+<div class="summary-grid">
+    <div class="summary-card income-card">
+        <h4>Total Income</h4>
+        <p class="amount">₹{{ total_income }}</p>
+    </div>
+    <div class="summary-card expense-card">
+        <h4>Total Expenses</h4>
+        <p class="amount">₹{{ total_expenses }}</p>
+    </div>
+    <div class="summary-card balance-card">
+        <h4>Balance</h4>
+        <p class="amount">₹{{ balance }}</p>
+    </div>
+</div>
+
+{% if total_income or total_expenses %}
+<div class="chart-box" style="max-width: 400px; margin: 0 auto 30px;">
+    <h3 style="text-align:center;">Income vs Expenses</h3>
+    <canvas id="overviewChart"></canvas>
+</div>
+{% endif %}
+
+<div class="recent-grid">
+    <div class="recent-box">
+        <h3>Recent Income</h3>
+        <table>
+            <tr><th>Source</th><th>Amount</th><th>Date</th></tr>
+            {% for i in recent_income %}
+            <tr><td>{{ i.get_source_display }}</td><td>₹{{ i.amount }}</td><td>{{ i.date }}</td></tr>
+            {% empty %}
+            <tr><td colspan="3">No income records yet.</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="recent-box">
+        <h3>Recent Expenses</h3>
+        <table>
+            <tr><th>Category</th><th>Amount</th><th>Date</th></tr>
+            {% for e in recent_expenses %}
+            <tr><td>{{ e.get_category_display }}</td><td>₹{{ e.amount }}</td><td>{{ e.date }}</td></tr>
+            {% empty %}
+            <tr><td colspan="3">No expense records yet.</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% if total_income or total_expenses %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+    new Chart(document.getElementById('overviewChart'), {
+        type: 'pie',
+        data: {
+            labels: {{ pie_labels|safe }},
+            datasets: [{
+                data: {{ pie_totals|safe }},
+                backgroundColor: ['#4CAF50', '#eb5757']
+            }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Edit Expense{% endblock %}
+{% block content %}
+<h2>Edit Expense</h2>
+
+<div class="add-form-box">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group">
+                <label>Category</label>
+                <select name="category" required>
+                    {% for value, label in category_choices %}
+                    <option value="{{ value }}" {% if value == expense.category %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Amount</label>
+                <input type="number" name="amount" step="0.01" value="{{ expense.amount }}" required>
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" name="date" value="{{ expense.date|date:'Y-m-d' }}" required>
+            </div>
+            <div class="form-group">
+                <label>Notes</label>
+                <input type="text" name="notes" value="{{ expense.notes }}">
+            </div>
+        </div>
+        <button type="submit" class="btn">Update Expense</button>
+        <a href="{% url 'expenses' %}" class="btn-cancel">Cancel</a>
+    </form>
+</div>
+{% endblock %}

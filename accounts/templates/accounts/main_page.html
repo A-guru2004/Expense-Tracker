@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="welcome-box">
+    <h2>Welcome, {{ user.username }} 👋</h2>
+    <p>What would you like to do today?</p>
+</div>
+
+<div class="options-grid">
+    <a href="{% url 'dashboard' %}" class="option-card">
+        <div class="option-icon">📊</div>
+        <h3>Dashboard</h3>
+        <p>View your income vs expense summary</p>
+    </a>
+
+    <a href="{% url 'income' %}" class="option-card">
+        <div class="option-icon">💵</div>
+        <h3>Income</h3>
+        <p>Add and manage your income entries</p>
+    </a>
+
+    <a href="{% url 'expenses' %}" class="option-card">
+        <div class="option-icon">💸</div>
+        <h3>Expenses</h3>
+        <p>Add and manage your expense entries</p>
+    </a>
+</div>
+
+<div class="logout-center">
+    <a href="{% url 'logout' %}" class="btn btn-logout">Logout</a>
+</div>
+{% endblock %}
